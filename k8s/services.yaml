@@ -1,0 +1,50 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      name: flickrphotosearch-backend
+      visualize: "true"
+    name: flickrphotosearch-backend
+    selfLink: /api/v1/namespaces/default/services/flickrphotosearch-backend
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      name: flickrphotosearch-backend
+      visualize: "true"
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      name: flickrphotosearch-frontend
+      visualize: "true"
+    name: flickrphotosearch-frontend
+    selfLink: /api/v1/namespaces/default/services/flickrphotosearch-frontend
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+    selector:
+      name: flickrphotosearch-frontend
+      visualize: "true"
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: flickrphotosearch-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: flickrphotosearch-ingress
+
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: flickrphotosearch-frontend
+          servicePort: 80
+      - path: /api
+        backend:
+          serviceName: flickrphotosearch-backend
+          servicePort: 8080

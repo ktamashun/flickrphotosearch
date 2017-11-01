@@ -1,0 +1,98 @@
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: null
+    generation: 1
+    labels:
+      name: flickrphotosearch-backend
+      visualize: "true"
+    name: flickrphotosearch-backend
+    selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/flickrphotosearch-backend
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        name: flickrphotosearch-backend
+        visualize: "true"
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          name: flickrphotosearch-backend
+          visualize: "true"
+      spec:
+        containers:
+        - image: kovacstamas/flickerphotosearch-backend:v1
+          imagePullPolicy: IfNotPresent
+          name: flickrphotosearch-backend
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          env:
+            - name: FLICKR_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: flickr-photo-search
+                  key: flickr-photo-search
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status: {}
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: null
+    generation: 1
+    labels:
+      name: flickrphotosearch-frontend
+      visualize: "true"
+    name: flickrphotosearch-frontend
+    selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/flickrphotosearch-frontend
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        name: flickrphotosearch-frontend
+        visualize: "true"
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          name: flickrphotosearch-frontend
+          visualize: "true"
+      spec:
+        containers:
+        - image: kovacstamas/flickerphotosearch-frontend:v1.1
+          imagePullPolicy: IfNotPresent
+          name: flickrphotosearch-frontend
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

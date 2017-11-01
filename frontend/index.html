@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Flicker Photo Search App">
+    <meta name="author" content="Tamás Kovács">
+    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
+
+    <title>Flicker Photo Search App</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.0/examples/starter-template/starter-template.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+    <script>window.jQuery || document.write('<script src="https://getbootstrap.com/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        .img-thumbnail {
+            margin-bottom: 20px;
+        }
+        .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+        .loader {
+            border-top: 16px solid #3498db;
+            border-bottom: 16px solid #3498db;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#"><img src="http://www.freeiconspng.com/uploads/flickr-logo-png-3.png" style="height: 30px" alt=""></a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="starter-template">
+        <h1>Flickr Photo Search</h1>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-inline" id="photo-search-form">
+                        <div class="form-group col-md-12">
+                            <input type="text" class="form-control input-lg col-md-9 offset-md-1" id="photo-search-query" placeholder="Search Flickr photos">
+                            <button type="submit" class="btn btn-primary btn-md col-md-1" style="margin-left: 20px">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" id="results"></div>
+    </div>
+
+</main><!-- /.container -->
+
+<script type="text/javascript">
+    $("#photo-search-form").submit(function() {
+        makeCall();
+        return false;
+    });
+
+    function makeCall() {
+        $('#results').html('<div class="loader offset-md-5"></div>');
+
+        window.jQuery.get( "/api/v1/photos/search/"+$("#photo-search-query").val()+"/1", function( data ) {
+            var pageCount = data.data.attributes.pageCount;
+            var total = data.data.attributes.total;
+            var photos = data.included;
+            var images = "";
+
+            if (photos) {
+                for (var i = 0; i < photos.length; i++) {
+                    images += '<div class="col-md-3"><a href="'+photos[i].attributes.mediumUrl+'" target="_blank"><img src="'+photos[i].attributes.thumbnailUrl+'" class="img-thumbnail"></a></div>'
+                }
+            }
+
+            $('#results').html(images)
+        });
+
+        return false;
+    }
+</script>
+
+</body>
+</html>

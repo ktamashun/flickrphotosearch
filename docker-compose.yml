@@ -1,0 +1,14 @@
+version: '2.1'
+
+services:
+  backend:
+    image: "flickerphotosearch-backend:v1"
+    ports:
+     - "8080:8080"
+    env_file:
+      - backend/.env
+
+  frontend:
+    image: "flickerphotosearch-frontend:v1"
+    ports:
+     - "8081:80"
