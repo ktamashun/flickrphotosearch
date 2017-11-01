@@ -18,7 +18,7 @@ type Routes []Route
 
 var routes = Routes{
 	Route{
-		"Index",
+		"PhotoSearch",
 		"GET",
 		"/api/v1/photos/search/{query}/{page}",
 		handlers.PhotoSearchHandler,
