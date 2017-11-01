@@ -1,48 +1,48 @@
 package models
 
 import (
-	"net/http"
-	"fmt"
-	"flickrphotosearch/backend/app/common"
-	"encoding/json"
-	"io/ioutil"
 	"crypto/tls"
+	"encoding/json"
+	"flickrphotosearch/backend/app/common"
+	"fmt"
+	"io/ioutil"
+	"net/http"
 	url2 "net/url"
 )
 
 // Photo is a photo from Flickr
 type Photo struct {
-	ID		string	`jsonapi:"primary,photo"`
-	ThumbnailUrl	string	`jsonapi:"attr,thumbnailUrl"`
-	MediumUrl	string	`jsonapi:"attr,mediumUrl"`
-	LargeUrl	string	`jsonapi:"attr,largeUrl"`
-	Owner		string	`jsonapi:"attr,owner"`
-	Title		string	`jsonapi:"attr,title"`
+	ID           string `jsonapi:"primary,photo"`
+	ThumbnailUrl string `jsonapi:"attr,thumbnailUrl"`
+	MediumUrl    string `jsonapi:"attr,mediumUrl"`
+	LargeUrl     string `jsonapi:"attr,largeUrl"`
+	Owner        string `jsonapi:"attr,owner"`
+	Title        string `jsonapi:"attr,title"`
 }
 
 type PhotoSearchRawPhoto struct {
-	Farm		int	`json:"farm"`
-	Id		string	`json:"id"`
-	Isfamily	int	`json:"isfamily"`
-	Isfriend	int	`json:"isfriend"`
-	Ispublic	int	`json:"ispublic"`
-	Owner		string	`json:"owner"`
-	Secret		string	`json:"secret"`
-	Server		string	`json:"server"`
-	Title		string	`json:"title"`
+	Farm     int    `json:"farm"`
+	Id       string `json:"id"`
+	Isfamily int    `json:"isfamily"`
+	Isfriend int    `json:"isfriend"`
+	Ispublic int    `json:"ispublic"`
+	Owner    string `json:"owner"`
+	Secret   string `json:"secret"`
+	Server   string `json:"server"`
+	Title    string `json:"title"`
 }
 
 type PhotoSearchBlock struct {
-	Page	int			`json:"page"`
-	Pages	int			`json:"pages"`
-	Perpage	int			`json:"perpage"`
-	Total	string			`json:"total"`
-	Photo	[]*PhotoSearchRawPhoto	`json:"photo"`
+	Page    int                    `json:"page"`
+	Pages   int                    `json:"pages"`
+	Perpage int                    `json:"perpage"`
+	Total   string                 `json:"total"`
+	Photo   []*PhotoSearchRawPhoto `json:"photo"`
 }
 
 type PhotoSearchResponse struct {
-	Stat	string			`json:"stat"`
-	Photos	PhotoSearchBlock	`json:"photos"`
+	Stat   string           `json:"stat"`
+	Photos PhotoSearchBlock `json:"photos"`
 }
 
 const FlickrApiUrl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=%s&per_page=%d&text=%s&page=%d&nojsoncallback=1"
@@ -93,11 +93,11 @@ func ParsePhotoSearchResponse(body []byte) (*PhotoSearchResponse, error) {
 
 func ConvertRawPhoto(rawphoto *PhotoSearchRawPhoto) *Photo {
 	return &Photo{
-		ID:		rawphoto.Id,
-		ThumbnailUrl:	fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "m"),
-		MediumUrl:	fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "b"),
-		LargeUrl:	fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "h"),
-		Owner:		rawphoto.Owner,
-		Title:		rawphoto.Title,
+		ID:           rawphoto.Id,
+		ThumbnailUrl: fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "m"),
+		MediumUrl:    fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "b"),
+		LargeUrl:     fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "h"),
+		Owner:        rawphoto.Owner,
+		Title:        rawphoto.Title,
 	}
 }

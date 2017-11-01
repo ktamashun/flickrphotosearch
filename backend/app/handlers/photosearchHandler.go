@@ -3,16 +3,16 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/google/jsonapi"
 	"flickrphotosearch/backend/app/models"
+	"github.com/google/jsonapi"
 	"github.com/gorilla/mux"
 	"strconv"
 )
 
 type PhotoSearchResponse struct {
-	Photos		[]*models.Photo	`jsonapi:"relation,photos"`
-	PageCount	int				`jsonapi:"attr,pageCount"`
-	Total		string			`jsonapi:"attr,total"`
+	Photos    []*models.Photo `jsonapi:"relation,photos"`
+	PageCount int             `jsonapi:"attr,pageCount"`
+	Total     string          `jsonapi:"attr,total"`
 }
 
 // PhotoSearchHandler /api/v1/photos/search/{query}/{page}
@@ -31,9 +31,9 @@ func PhotoSearchHandler(w http.ResponseWriter, request *http.Request) {
 	photos, pageCount, total := models.SearchPhoto(vars["query"], page)
 
 	response := &PhotoSearchResponse{
-		Photos:		photos,
-		PageCount:	pageCount,
-		Total:		total,
+		Photos:    photos,
+		PageCount: pageCount,
+		Total:     total,
 	}
 
 	if err := jsonapi.MarshalPayload(w, response); err != nil {
