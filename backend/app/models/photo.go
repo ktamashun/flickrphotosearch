@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	url2 "net/url"
+	"net/url"
 )
 
 // Photo is a photo from Flickr
@@ -50,7 +50,7 @@ const FlickerPhotoUrl = "https://farm%d.staticflickr.com/%s/%s_%s_%s.jpg"
 
 func SearchPhoto(query string, page int) ([]*Photo, int, string) {
 	photos := []*Photo{}
-	url := fmt.Sprintf(FlickrApiUrl, common.AppConfig.FlickrApiKey, 100, url2.QueryEscape(query), page)
+	url := fmt.Sprintf(FlickrApiUrl, common.AppConfig.FlickrApiKey, 100, url.QueryEscape(query), page)
 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
