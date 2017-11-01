@@ -12,16 +12,16 @@ import (
 
 // Photo is a photo from Flickr
 type Photo struct {
-	ID				string  `jsonapi:"primary,photo"`
-	ThumbnailUrl	string  `jsonapi:"attr,thumbnailUrl"`
-	MediumUrl		string  `jsonapi:"attr,mediumUrl"`
-	LargeUrl		string  `jsonapi:"attr,largeUrl"`
+	ID				string	`jsonapi:"primary,photo"`
+	ThumbnailUrl	string	`jsonapi:"attr,thumbnailUrl"`
+	MediumUrl		string	`jsonapi:"attr,mediumUrl"`
+	LargeUrl		string	`jsonapi:"attr,largeUrl"`
 	Owner			string	`jsonapi:"attr,owner"`
 	Title			string	`jsonapi:"attr,title"`
 }
 
 type PhotoSearchRawPhoto struct {
-	Farm		int 	`json:"farm"`
+	Farm		int		`json:"farm"`
 	Id			string	`json:"id"`
 	Isfamily	int		`json:"isfamily"`
 	Isfriend	int		`json:"isfriend"`
@@ -41,7 +41,7 @@ type PhotoSearchBlock struct {
 }
 
 type PhotoSearchResponse struct {
-	Stat 	string				`json:"stat"`
+	Stat	string				`json:"stat"`
 	Photos	PhotoSearchBlock	`json:"photos"`
 }
 
