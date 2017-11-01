@@ -12,20 +12,20 @@ import (
 
 // Photo is a photo from Flickr
 type Photo struct {
-	ID				string	`jsonapi:"primary,photo"`
+	ID		string	`jsonapi:"primary,photo"`
 	ThumbnailUrl	string	`jsonapi:"attr,thumbnailUrl"`
-	MediumUrl		string	`jsonapi:"attr,mediumUrl"`
-	LargeUrl		string	`jsonapi:"attr,largeUrl"`
-	Owner			string	`jsonapi:"attr,owner"`
-	Title			string	`jsonapi:"attr,title"`
+	MediumUrl	string	`jsonapi:"attr,mediumUrl"`
+	LargeUrl	string	`jsonapi:"attr,largeUrl"`
+	Owner		string	`jsonapi:"attr,owner"`
+	Title		string	`jsonapi:"attr,title"`
 }
 
 type PhotoSearchRawPhoto struct {
-	Farm		int		`json:"farm"`
-	Id			string	`json:"id"`
-	Isfamily	int		`json:"isfamily"`
-	Isfriend	int		`json:"isfriend"`
-	Ispublic	int		`json:"ispublic"`
+	Farm		int	`json:"farm"`
+	Id		string	`json:"id"`
+	Isfamily	int	`json:"isfamily"`
+	Isfriend	int	`json:"isfriend"`
+	Ispublic	int	`json:"ispublic"`
 	Owner		string	`json:"owner"`
 	Secret		string	`json:"secret"`
 	Server		string	`json:"server"`
@@ -33,15 +33,15 @@ type PhotoSearchRawPhoto struct {
 }
 
 type PhotoSearchBlock struct {
-	Page	int							`json:"page"`
-	Pages	int							`json:"pages"`
-	Perpage	int							`json:"perpage"`
-	Total	string						`json:"total"`
-	Photo	[]*PhotoSearchRawPhoto		`json:"photo"`
+	Page	int			`json:"page"`
+	Pages	int			`json:"pages"`
+	Perpage	int			`json:"perpage"`
+	Total	string			`json:"total"`
+	Photo	[]*PhotoSearchRawPhoto	`json:"photo"`
 }
 
 type PhotoSearchResponse struct {
-	Stat	string				`json:"stat"`
+	Stat	string			`json:"stat"`
 	Photos	PhotoSearchBlock	`json:"photos"`
 }
 
@@ -93,11 +93,11 @@ func ParsePhotoSearchResponse(body []byte) (*PhotoSearchResponse, error) {
 
 func ConvertRawPhoto(rawphoto *PhotoSearchRawPhoto) *Photo {
 	return &Photo{
-		ID:				rawphoto.Id,
+		ID:		rawphoto.Id,
 		ThumbnailUrl:	fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "m"),
-		MediumUrl:		fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "b"),
-		LargeUrl:		fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "h"),
-		Owner:			rawphoto.Owner,
-		Title:			rawphoto.Title,
+		MediumUrl:	fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "b"),
+		LargeUrl:	fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "h"),
+		Owner:		rawphoto.Owner,
+		Title:		rawphoto.Title,
 	}
 }
