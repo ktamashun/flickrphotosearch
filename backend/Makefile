@@ -56,10 +56,6 @@ run-docker: ## Run docker app
 protoc: ## Generate protobuf code
 	protoc -I=./protos --go_out=plugins=grpc:./apis ./protos/*.proto
 
-.PHONY: kubernetes-create-secrets
-kubernetes-create-secrets: ## Creates the kubernetes secrets from ./etc/flickr-photo-search
-	kubectl create secret generic flickr-photo-search --from-file=./etc/flickr-photo-search
-
 .PHONY: help
 .DEFAULT_GOAL := help
 help:

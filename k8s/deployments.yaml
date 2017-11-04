@@ -42,7 +42,7 @@ items:
               valueFrom:
                 secretKeyRef:
                   name: flickr-photo-search
-                  key: flickr-photo-search
+                  key: flicker-api-key
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         schedulerName: default-scheduler
