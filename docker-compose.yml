@@ -5,13 +5,13 @@ services:
     image: 'bitnami/memcached:latest'
 
   backend:
-    image: "flickerphotosearch-backend:v1"
+    image: "flickrphotosearch-backend:v1"
     ports:
      - "7000:8080"
     env_file:
       - backend/.env
 
   frontend:
-    image: "flickerphotosearch-frontend:v1.1"
+    image: "flickrphotosearch-frontend:v1.1"
     ports:
      - "7001:80"

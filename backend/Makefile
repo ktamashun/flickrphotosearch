@@ -4,11 +4,11 @@
 BUILD_DIR = build
 PACKAGE = ${shell go list .}
 BINARY_NAME = ${shell echo ${PACKAGE}}
-DOCKER_IMAGE_NAME = flickerphotosearch-backend
+DOCKER_IMAGE_NAME = flickrphotosearch-backend
 DOCKER_IMAGE_VERSION = v1
 
 .PHONY: install
-install:: dep .env .env.test protoc ## Install FlickerPhotoSearch service
+install:: dep .env .env.test protoc ## Install FlickrPhotoSearch service
 
 .PHONY: dep
 dep: ## Install go dependencies
@@ -25,7 +25,7 @@ clean: ## Cleans the project
 	rm -rf build/ vendor/ .env .env.test apis/*
 
 .PHONY: build
-build: ## Build the FlickerPhotoSearch app
+build: ## Build the FlickrPhotoSearch app
 	go build -o ${BUILD_DIR}/${BINARY_NAME} ${PACKAGE}
 
 .PHONY: build-docker
@@ -33,7 +33,7 @@ build-docker: ## Build app for Docker
 	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ${BUILD_DIR}/${BINARY_NAME}-docker ${PACKAGE}
 
 .PHONY: run
-run: build .env ## Run the FlickerPhotoSearch app
+run: build .env ## Run the FlickrPhotoSearch app
 	${BUILD_DIR}/${BINARY_NAME} ${ARGS}
 
 .PHONY: docker

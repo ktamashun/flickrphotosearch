@@ -49,7 +49,7 @@ type PhotoSearchResponse struct {
 }
 
 const FlickrApiUrl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=%s&per_page=%d&text=%s&page=%d&nojsoncallback=1"
-const FlickerPhotoUrl = "https://farm%d.staticflickr.com/%s/%s_%s_%s.jpg"
+const FlickrPhotoUrl = "https://farm%d.staticflickr.com/%s/%s_%s_%s.jpg"
 
 func SearchPhoto(query string, page int) ([]*Photo, int, string) {
 	photos := []*Photo{}
@@ -110,9 +110,9 @@ func ParsePhotoSearchResponse(body []byte) (*PhotoSearchResponse, error) {
 func ConvertRawPhoto(rawphoto *PhotoSearchRawPhoto) *Photo {
 	return &Photo{
 		ID:           rawphoto.Id,
-		ThumbnailUrl: fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "m"),
-		MediumUrl:    fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "b"),
-		LargeUrl:     fmt.Sprintf(FlickerPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "h"),
+		ThumbnailUrl: fmt.Sprintf(FlickrPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "m"),
+		MediumUrl:    fmt.Sprintf(FlickrPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "b"),
+		LargeUrl:     fmt.Sprintf(FlickrPhotoUrl, rawphoto.Farm, rawphoto.Server, rawphoto.Id, rawphoto.Secret, "h"),
 		Owner:        rawphoto.Owner,
 		Title:        rawphoto.Title,
 	}

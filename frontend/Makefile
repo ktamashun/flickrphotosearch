@@ -2,7 +2,7 @@
 
 # Variables
 BUILD_DIR = build
-DOCKER_IMAGE_NAME = flickerphotosearch-frontend
+DOCKER_IMAGE_NAME = flickrphotosearch-frontend
 DOCKER_IMAGE_VERSION = v1.1
 
 .PHONY: docker
