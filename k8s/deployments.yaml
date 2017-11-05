@@ -13,7 +13,7 @@ items:
     name: flickrphotosearch-backend
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/flickrphotosearch-backend
   spec:
-    replicas: 2
+    replicas: 1
     selector:
       matchLabels:
         name: flickrphotosearch-backend
@@ -32,7 +32,7 @@ items:
       spec:
         containers:
         - image: kovacstamas/flickerphotosearch-backend:v1
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           name: flickrphotosearch-backend
           resources: {}
           terminationMessagePath: /dev/termination-log
@@ -43,6 +43,16 @@ items:
                 secretKeyRef:
                   name: flickr-photo-search
                   key: flicker-api-key
+            - name: MEMCACHE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: flickr-photo-search
+                  key: memcache-host
+            - name: MEMCACHE_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: flickr-photo-search
+                  key: memcache-port
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         schedulerName: default-scheduler
@@ -81,7 +91,7 @@ items:
       spec:
         containers:
         - image: kovacstamas/flickerphotosearch-frontend:v1.1
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           name: flickrphotosearch-frontend
           resources: {}
           terminationMessagePath: /dev/termination-log

@@ -8,6 +8,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"github.com/bradfitz/gomemcache/memcache"
+	"time"
+	"log"
 )
 
 // Photo is a photo from Flickr
@@ -50,24 +53,37 @@ const FlickerPhotoUrl = "https://farm%d.staticflickr.com/%s/%s_%s_%s.jpg"
 
 func SearchPhoto(query string, page int) ([]*Photo, int, string) {
 	photos := []*Photo{}
-	url := fmt.Sprintf(FlickrApiUrl, common.AppConfig.FlickrApiKey, 100, url.QueryEscape(query), page)
+	apiUrl := fmt.Sprintf(FlickrApiUrl, common.AppConfig.FlickrApiKey, 100, url.QueryEscape(query), page)
+	body := []byte{}
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-	client := &http.Client{Transport: tr}
+	cachedData, err := common.Cache.Get(apiUrl)
 
-	res, err := client.Get(url)
+	log.Println("Requested URL: ", apiUrl)
+
 	if err != nil {
-		panic(err.Error())
+		log.Println("Cache miss, making request to the Flickr API")
+
+		tr := &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+		client := &http.Client{Transport: tr}
+
+		res, err := client.Get(apiUrl)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		body, err = ioutil.ReadAll(res.Body)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		common.Cache.Set(&memcache.Item{Key: apiUrl, Value: body, Expiration: int32(time.Minute.Seconds())})
+	} else {
+		body = cachedData.Value
+		log.Println("Loading data from cache")
 	}
 
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		panic(err.Error())
-	}
-
-	fmt.Println(url)
 	parsedResponse, err := ParsePhotoSearchResponse(body)
 	if err != nil {
 		panic(err)

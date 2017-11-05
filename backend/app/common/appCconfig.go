@@ -13,6 +13,8 @@ type Config struct {
 	DbName       string
 	DbPort       string
 	FlickrApiKey string
+	MemcacheHost string
+	MemcachePort string
 }
 
 var AppConfig Config
@@ -27,4 +29,6 @@ func init() {
 	AppConfig.DbPort = os.Getenv("MYSQL_PORT")
 
 	AppConfig.FlickrApiKey = os.Getenv("FLICKR_API_KEY")
+	AppConfig.MemcacheHost = os.Getenv("MEMCACHE_HOST")
+	AppConfig.MemcachePort = os.Getenv("MEMCACHE_PORT")
 }

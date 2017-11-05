@@ -1,6 +1,10 @@
-hash: 8c17a075fd5b9ca065951cdeee3d4fbd1c5b5b4620ac6b466e63952631c2eed2
-updated: 2017-10-31T20:31:29.441347735+01:00
+hash: 84a334c0392f97067a9bf3510080ce7b77fbc354a4b5966b86e9fbcd7020e4a5
+updated: 2017-11-04T15:00:36.933276551+01:00
 imports:
+- name: github.com/bradfitz/gomemcache
+  version: 1952afaa557dc08e8e0d89eafab110fb501c1a2b
+  subpackages:
+  - memcache
 - name: github.com/go-sql-driver/mysql
   version: a0583e0143b1624142adab07e0e97fe106d99561
 - name: github.com/google/jsonapi
@@ -9,8 +13,6 @@ imports:
   version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
 - name: github.com/gorilla/mux
   version: 24fca303ac6da784b9e8269f724ddeb0b2eea5e7
-- name: github.com/joho/godotenv
-  version: a79fa1e548e2c689c241d10173efd51e5d689d5b
 - name: github.com/parnurzeal/gorequest
   version: a578a48e8d6ca8b01a3b18314c43c6716bb5f5a3
 testImports: []
