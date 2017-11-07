@@ -83,7 +83,7 @@
     function makeCall() {
         $('#results').html('<div class="loader offset-md-5"></div>');
 
-        window.jQuery.get( "/api/v1/photos/search/"+$("#photo-search-query").val()+"/1", function( data ) {
+        window.jQuery.get( "{{.BackendUrl}}/api/v1/photos/search/"+$("#photo-search-query").val()+"/1", function( data ) {
             var pageCount = data.data.attributes.pageCount;
             var total = data.data.attributes.total;
             var photos = data.included;

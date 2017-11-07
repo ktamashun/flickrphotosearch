@@ -2,8 +2,23 @@
 
 # Variables
 BUILD_DIR = build
+PACKAGE = ${shell go list .}
+BINARY_NAME = ${shell echo ${PACKAGE}}
 DOCKER_IMAGE_NAME = flickrphotosearch-frontend
 DOCKER_IMAGE_VERSION = v1.1
+
+
+.PHONY: build
+build: ## Build the FlickrPhotoSearch app
+	go build -o ${BUILD_DIR}/${BINARY_NAME} ${PACKAGE}
+
+.PHONY: build-docker
+build-docker: ## Build app for Docker
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ${BUILD_DIR}/${BINARY_NAME}-docker ${PACKAGE}
+
+.PHONY: run
+run: build ## Run the FlickrPhotoSearch frontend app
+	${BUILD_DIR}/${BINARY_NAME} ${ARGS}
 
 .PHONY: docker
 docker: ## Build docker image from the frontend app
