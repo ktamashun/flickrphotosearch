@@ -1,4 +1,4 @@
-package frontend
+package main
 
 import (
 	"html/template"
@@ -15,10 +15,10 @@ func main() {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	/*page := &IndexPage{
-		BackendUrl: "http://localhost:8080",
+	page := &IndexPage{
+		BackendUrl: "http://localhost:9000",
 	}
 
 	t, _ := template.ParseFiles("templates/index.html")
-	t.Execute(w, page)*/
+	t.Execute(w, page)
 }
