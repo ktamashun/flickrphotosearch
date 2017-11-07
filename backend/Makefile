@@ -56,6 +56,10 @@ run-docker: ## Run docker app
 protoc: ## Generate protobuf code
 	protoc -I=./protos --go_out=plugins=grpc:./apis ./protos/*.proto
 
+.PHONY: test
+test: ## Run tests
+	go test ./app/... ${ARGS}
+
 .PHONY: help
 .DEFAULT_GOAL := help
 help:

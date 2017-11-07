@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"flickrphotosearch/backend/app/models"
+	"flickrphotosearch/backend/app/models/photo_search"
 	"github.com/google/jsonapi"
 	"github.com/gorilla/mux"
 	"strconv"
@@ -28,7 +29,7 @@ func PhotoSearchHandler(w http.ResponseWriter, request *http.Request) {
 		panic(err)
 	}
 
-	photos, pageCount, total := models.SearchPhoto(vars["query"], page)
+	photos, pageCount, total := photo_search.SearchPhoto(vars["query"], page)
 
 	response := &PhotoSearchResponse{
 		Photos:    photos,
