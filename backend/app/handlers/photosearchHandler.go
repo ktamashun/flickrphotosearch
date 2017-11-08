@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"flickrphotosearch/backend/app/models"
-	"flickrphotosearch/backend/app/models/photo_search"
+	"github.com/ktamashun/flickrphotosearch/backend/app/models"
+	"github.com/ktamashun/flickrphotosearch/backend/app/models/photo_search"
 	"github.com/google/jsonapi"
 	"github.com/gorilla/mux"
 	"strconv"

@@ -7,11 +7,11 @@ services:
   backend:
     image: "flickrphotosearch-backend:v1"
     ports:
-     - "7000:8080"
+     - "8101:8080"
     env_file:
       - backend/.env
 
   frontend:
     image: "flickrphotosearch-frontend:v1.1"
     ports:
-     - "7001:80"
+     - "8100:80"

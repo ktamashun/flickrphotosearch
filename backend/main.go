@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"flickrphotosearch/backend/app"
+	"github.com/ktamashun/flickrphotosearch/backend/app"
 )
 
 const (
