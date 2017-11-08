@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"net/http"
+	"os"
 )
 
 type IndexPage struct {
@@ -16,7 +17,7 @@ func main() {
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	page := &IndexPage{
-		BackendUrl: "http://localhost:8101",
+		BackendUrl: os.Getenv("BACKEND_ENDPOINT"),
 	}
 
 	t, _ := template.ParseFiles("templates/index.html")

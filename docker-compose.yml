@@ -15,3 +15,5 @@ services:
     image: "flickrphotosearch-frontend:v1.1"
     ports:
      - "8100:80"
+    env_file:
+      - frontend/.env

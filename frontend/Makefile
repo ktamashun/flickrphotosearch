@@ -7,6 +7,18 @@ BINARY_NAME = ${shell echo ${PACKAGE}}
 DOCKER_IMAGE_NAME = flickrphotosearch-frontend
 DOCKER_IMAGE_VERSION = v1.1
 
+.PHONY: install
+install:: .env .env.test ## Install FlickrPhotoSearch service
+
+.env: ## Create .env file if it does not exist.
+	cp .env.dist .env
+
+.env.test: ## Create .env-test file if it does not exist.
+	cp .env.dist .env.test
+
+.PHONY: clean
+clean: ## Cleans the project
+	rm -rf build/ .env .env.test
 
 .PHONY: build
 build: ## Build the FlickrPhotoSearch app
