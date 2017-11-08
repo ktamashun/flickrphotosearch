@@ -21,8 +21,8 @@ run: build ## Run the FlickrPhotoSearch frontend app
 	${BUILD_DIR}/${BINARY_NAME} ${ARGS}
 
 .PHONY: docker
-docker: build ## Build docker image from the frontend app
-	docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .
+docker: build-docker ## Build docker image from the app
+	docker build --build-arg BUILD_DIR=${BUILD_DIR} --build-arg BINARY_NAME=${BINARY_NAME}-docker -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION} .
 
 .PHONY: docker-tag
 docker-tag: ## Tag docker image
@@ -34,7 +34,7 @@ docker-push: ## Tag docker image
 
 .PHONY: run-docker
 run-docker: ## Run docker app
-	docker run -p 8080:8080 -it --rm ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
+	docker run -p 8100:80 -it --rm ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
 
 .PHONY: help
 .DEFAULT_GOAL := help

@@ -3,8 +3,8 @@ package photo_search
 import (
 	"crypto/tls"
 	"encoding/json"
-	"flickrphotosearch/backend/app/common"
-	"flickrphotosearch/backend/app/models"
+	"github.com/ktamashun/flickrphotosearch/backend/app/common"
+	"github.com/ktamashun/flickrphotosearch/backend/app/models"
 	"fmt"
 	"github.com/bradfitz/gomemcache/memcache"
 	"io/ioutil"

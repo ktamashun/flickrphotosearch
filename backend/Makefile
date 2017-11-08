@@ -50,7 +50,7 @@ docker-push: ## Tag docker image
 
 .PHONY: run-docker
 run-docker: ## Run docker app
-	docker run -p 8080:8080 -it --rm ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
+	docker run -p 8101:8080 -it --rm ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
 
 .PHONY: protoc
 protoc: ## Generate protobuf code

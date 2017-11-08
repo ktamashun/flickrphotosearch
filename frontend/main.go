@@ -11,12 +11,12 @@ type IndexPage struct {
 
 func main() {
 	http.HandleFunc("/", indexHandler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":80", nil)
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	page := &IndexPage{
-		BackendUrl: "http://localhost:9000",
+		BackendUrl: "http://localhost:8101",
 	}
 
 	t, _ := template.ParseFiles("templates/index.html")

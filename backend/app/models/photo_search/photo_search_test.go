@@ -1,7 +1,7 @@
 package photo_search
 
 import (
-	"flickrphotosearch/backend/app/models"
+	"github.com/ktamashun/flickrphotosearch/backend/app/models"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
