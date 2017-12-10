@@ -4,7 +4,7 @@
 BUILD_DIR = build
 PACKAGE = ${shell go list .}
 BINARY_NAME = ${shell echo ${PACKAGE}}
-DOCKER_IMAGE_NAME = flickrphotosearch-backend
+DOCKER_IMAGE_NAME = flickrphotosearch-api-gateway
 DOCKER_IMAGE_VERSION = v1
 
 .PHONY: install

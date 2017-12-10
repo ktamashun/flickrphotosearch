@@ -8,13 +8,19 @@ items:
       name: flickrphotosearch-backend
       visualize: "true"
     name: flickrphotosearch-backend
+    namespace: flickrphotosearch
     selfLink: /api/v1/namespaces/default/services/flickrphotosearch-backend
   spec:
     externalTrafficPolicy: Cluster
     ports:
-    - port: 8080
+    - name: http
+      port: 8080
       protocol: TCP
       targetPort: 8080
+    - name: grpc
+      port: 18000
+      protocol: TCP
+      targetPort: 18000
     selector:
       name: flickrphotosearch-backend
       visualize: "true"
@@ -22,6 +28,32 @@ items:
     type: NodePort
   status:
     loadBalancer: {}
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      name: flickrphotosearch-api-gateway
+      visualize: "true"
+    name: flickrphotosearch-api-gateway
+    namespace: flickrphotosearch
+    selfLink: /api/v1/namespaces/default/services/flickrphotosearch-api-gateway
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: http
+      port: 18080
+      protocol: TCP
+      targetPort: 18080
+    selector:
+      name: flickrphotosearch-api-gateway
+      visualize: "true"
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+
 - apiVersion: v1
   kind: Service
   metadata:
@@ -30,6 +62,7 @@ items:
       name: flickrphotosearch-frontend
       visualize: "true"
     name: flickrphotosearch-frontend
+    namespace: flickrphotosearch
     selfLink: /api/v1/namespaces/default/services/flickrphotosearch-frontend
   spec:
     externalTrafficPolicy: Cluster

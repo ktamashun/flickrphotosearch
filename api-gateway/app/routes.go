@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/ktamashun/flickrphotosearch/backend/app/handlers"
+	"github.com/ktamashun/flickrphotosearch/api-gateway/app/handlers"
 	"net/http"
 )
 
