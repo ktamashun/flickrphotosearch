@@ -43,9 +43,9 @@ const FlickrApiUrl = "https://api.flickr.com/services/rest/?method=flickr.photos
 const FlickrPhotoUrl = "https://farm%d.staticflickr.com/%s/%s_%s_%s.jpg"
 
 func SearchPhoto(query string, page int) ([]*models.Photo, int, string) {
-	photos := []*models.Photo{}
+	photos := make([]*models.Photo, 0)
 	apiUrl := fmt.Sprintf(FlickrApiUrl, common.AppConfig.FlickrApiKey, 100, url.QueryEscape(query), page)
-	body := []byte{}
+	body := make([]byte, 0)
 
 	cachedData, err := common.Cache.Get(apiUrl)
 

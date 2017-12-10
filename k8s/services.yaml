@@ -8,13 +8,19 @@ items:
       name: flickrphotosearch-backend
       visualize: "true"
     name: flickrphotosearch-backend
+    namespace: flickrphotosearch
     selfLink: /api/v1/namespaces/default/services/flickrphotosearch-backend
   spec:
     externalTrafficPolicy: Cluster
     ports:
-    - port: 8080
+    - name: http
+      port: 8080
       protocol: TCP
       targetPort: 8080
+    - name: grpc
+      port: 18000
+      protocol: TCP
+      targetPort: 18000
     selector:
       name: flickrphotosearch-backend
       visualize: "true"
@@ -30,6 +36,7 @@ items:
       name: flickrphotosearch-frontend
       visualize: "true"
     name: flickrphotosearch-frontend
+    namespace: flickrphotosearch
     selfLink: /api/v1/namespaces/default/services/flickrphotosearch-frontend
   spec:
     externalTrafficPolicy: Cluster
