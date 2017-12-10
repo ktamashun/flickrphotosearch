@@ -28,6 +28,32 @@ items:
     type: NodePort
   status:
     loadBalancer: {}
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: null
+    labels:
+      name: flickrphotosearch-api-gateway
+      visualize: "true"
+    name: flickrphotosearch-api-gateway
+    namespace: flickrphotosearch
+    selfLink: /api/v1/namespaces/default/services/flickrphotosearch-api-gateway
+  spec:
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: http
+      port: 18080
+      protocol: TCP
+      targetPort: 18080
+    selector:
+      name: flickrphotosearch-api-gateway
+      visualize: "true"
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+
 - apiVersion: v1
   kind: Service
   metadata:

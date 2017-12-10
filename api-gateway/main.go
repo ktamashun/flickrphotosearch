@@ -4,11 +4,11 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/ktamashun/flickrphotosearch/backend/app"
+	"github.com/ktamashun/flickrphotosearch/api-gateway/app"
 )
 
 const (
-	restPort = ":8080"
+	restPort = ":18080"
 )
 
 func main() {
