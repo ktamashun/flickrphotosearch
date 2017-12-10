@@ -6,6 +6,6 @@ ARG BINARY_NAME
 COPY $BUILD_DIR/$BINARY_NAME /app
 COPY ./templates/index.html /templates/index.html
 
-EXPOSE 8100 80
+EXPOSE 10080 80
 
 CMD ["/app"]
