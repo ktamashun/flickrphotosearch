@@ -17,7 +17,7 @@ func main() {
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	page := &IndexPage{
-		BackendUrl: os.Getenv("BACKEND_ENDPOINT"),
+		BackendUrl: os.Getenv("API_ENDPOINT"),
 	}
 
 	t, _ := template.ParseFiles("templates/index.html")
