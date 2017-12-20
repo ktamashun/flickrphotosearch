@@ -1,0 +1,18 @@
+hash: 862375b1225dfaf238a4925b8800707af1415418eb0be716d571cf6d0409fb0a
+updated: 2017-12-18T12:09:06.222781578+01:00
+imports:
+- name: go.uber.org/atomic
+  version: 8474b86a5a6f79c443ce4b2992817ff32cf208b8
+- name: go.uber.org/dig
+  version: d100de9c8cc8358591507951141bc107713ba671
+  subpackages:
+  - internal/digreflect
+- name: go.uber.org/fx
+  version: 35bf66c87beb2c8ec1a68cf00b54542e2d169c0b
+  subpackages:
+  - internal/fxlog
+  - internal/fxreflect
+  - internal/lifecycle
+- name: go.uber.org/multierr
+  version: 3c4937480c32f4c13a875a1829af76c98ca3d40a
+testImports: []

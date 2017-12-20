@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package flickrphotosearch;
+
+option go_package = "apis";
+
+message VideoSearchRequest {
+    string query = 1;
+}
+
+message VideoSearchResponse {
+    message Video {
+        string ID = 1;
+        string thumbnailUrl = 2;
+        string title = 3;
+        string url = 4;
+        string channel = 5;
+        string user = 6;
+    }
+
+    repeated Video videos = 3;
+}
+
+// The Video service definition.
+service Video {
+    // Search videos
+    rpc Search (VideoSearchRequest) returns (VideoSearchResponse) {}
+}
