@@ -87,7 +87,7 @@ items:
       type: RollingUpdate
     template:
       metadata:
-        creationTimestamp: null
+        creationTimestamp: null 
         labels:
           name: flickrphotosearch-api-gateway
           visualize: "true"
