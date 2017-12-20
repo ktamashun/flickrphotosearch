@@ -9,7 +9,7 @@ import (
 	"github.com/ktamashun/flickrphotosearch/api-gateway/app/models"
 	"github.com/ktamashun/flickrphotosearch/api-gateway/apis"
 	"context"
-	"google.golang.org/grpc"
+	"github.com/ktamashun/flickrphotosearch/api-gateway/app/common"
 )
 
 type PhotoSearchResponse struct {
@@ -32,11 +32,11 @@ func PhotoSearchHandler(w http.ResponseWriter, request *http.Request) {
 	}
 
 	photoSearchRequest := &apis.PhotoSearchRequest{
-		Page: int32(page),
+		Page:  int32(page),
 		Query: vars["query"],
 	}
 
-	var opts []grpc.DialOption
+	/*var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
 	conn, err := grpc.Dial("flickrphotosearch-backend:18000", opts...)
 	if err != nil {
@@ -44,8 +44,8 @@ func PhotoSearchHandler(w http.ResponseWriter, request *http.Request) {
 	}
 	defer conn.Close()
 
-	photoClient := apis.NewPhotoClient(conn)
-	photoSearchResponse, err := photoClient.Search(context.Background(), photoSearchRequest)
+	photoClient := apis.NewPhotoClient(conn)*/
+	photoSearchResponse, err := common.PhotoClient.Search(context.Background(), photoSearchRequest)
 	if err != nil {
 		panic(err)
 	}
@@ -54,12 +54,12 @@ func PhotoSearchHandler(w http.ResponseWriter, request *http.Request) {
 
 	for key, photo := range photoSearchResponse.Photos {
 		photos[key] = &models.Photo{
-			ID: photo.GetID(),
+			ID:           photo.GetID(),
 			ThumbnailUrl: photo.GetThumbnailUrl(),
-			MediumUrl: photo.GetMediumUrl(),
-			LargeUrl: photo.GetLargeUrl(),
-			Owner: photo.GetOwner(),
-			Title: photo.Title,
+			MediumUrl:    photo.GetMediumUrl(),
+			LargeUrl:     photo.GetLargeUrl(),
+			Owner:        photo.GetOwner(),
+			Title:        photo.Title,
 		}
 	}
 
