@@ -5,21 +5,38 @@ services:
     image: 'bitnami/memcached:latest'
 
   backend:
-    image: "flickrphotosearch-backend:v1"
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        - BUILD_DIR=./build
+        - BINARY_NAME=github.com/ktamashun/flickrphotosearch/backend-docker
     ports:
      - "18000:18000"
     env_file:
       - backend/.env
 
-  backend:
-    image: "flickrphotosearch-api-gateway:v1"
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+      args:
+        - BUILD_DIR=./build
+        - BINARY_NAME=github.com/ktamashun/flickrphotosearch/api-gateway-docker
+    links:
+      - backend
     ports:
      - "18080:18080"
     env_file:
       - api-gateway/.env
 
   frontend:
-    image: "flickrphotosearch-frontend:v1.1"
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - BUILD_DIR=./build
+        - BINARY_NAME=github.com/ktamashun/flickrphotosearch/frontend-docker
     ports:
      - "10080:80"
     env_file:

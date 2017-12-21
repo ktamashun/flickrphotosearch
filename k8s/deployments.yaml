@@ -87,7 +87,7 @@ items:
       type: RollingUpdate
     template:
       metadata:
-        creationTimestamp: null
+        creationTimestamp: null 
         labels:
           name: flickrphotosearch-api-gateway
           visualize: "true"
@@ -99,6 +99,17 @@ items:
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
+          env:
+            - name: BACKEND_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: flickr-photo-search
+                  key: backend-host
+            - name: BACKEND_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: flickr-photo-search
+                  key: backend-port
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         schedulerName: default-scheduler
