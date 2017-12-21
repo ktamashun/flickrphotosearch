@@ -9,6 +9,7 @@ import (
 	"github.com/ktamashun/flickrphotosearch/api-gateway/app/models"
 	"github.com/ktamashun/flickrphotosearch/api-gateway/apis"
 	"context"
+	"google.golang.org/grpc"
 	"github.com/ktamashun/flickrphotosearch/api-gateway/app/common"
 )
 
@@ -36,16 +37,19 @@ func PhotoSearchHandler(w http.ResponseWriter, request *http.Request) {
 		Query: vars["query"],
 	}
 
-	/*var opts []grpc.DialOption
+	// Quick hack........
+	// TODO: use dependency injection
+	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
-	conn, err := grpc.Dial("flickrphotosearch-backend:18000", opts...)
+	conn, err := grpc.Dial(common.GetConnectionString(), opts...)
 	if err != nil {
 		panic(err)
 	}
 	defer conn.Close()
 
-	photoClient := apis.NewPhotoClient(conn)*/
-	photoSearchResponse, err := common.PhotoClient.Search(context.Background(), photoSearchRequest)
+	photoClient := apis.NewPhotoClient(conn)
+	photoSearchResponse, err := photoClient.Search(context.Background(), photoSearchRequest)
+	//photoSearchResponse, err := common.PhotoClient.Search(context.Background(), photoSearchRequest)
 	if err != nil {
 		panic(err)
 	}

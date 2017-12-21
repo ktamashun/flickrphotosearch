@@ -13,7 +13,7 @@ func init() {
 	var opts []grpc.DialOption
 
 	opts = append(opts, grpc.WithInsecure())
-	conn, err := grpc.Dial(getConnectionString(), opts...)
+	conn, err := grpc.Dial(GetConnectionString(), opts...)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -22,7 +22,7 @@ func init() {
 	PhotoClient = apis.NewPhotoClient(conn)
 }
 
-func getConnectionString() string {
+func GetConnectionString() string {
 	var connstr = fmt.Sprintf("%s:%s",
 		AppConfig.BackendHost,
 		AppConfig.BackendPort,
