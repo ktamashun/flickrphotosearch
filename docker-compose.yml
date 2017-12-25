@@ -16,6 +16,18 @@ services:
     env_file:
       - backend/.env
 
+  video-search:
+    build:
+      context: ./video-search
+      dockerfile: Dockerfile
+      args:
+        - BUILD_DIR=./build
+        - BINARY_NAME=github.com/ktamashun/flickrphotosearch/video-search-docker
+    ports:
+     - "18001:18000"
+    env_file:
+      - video-search/.env
+
   api-gateway:
     build:
       context: ./api-gateway
