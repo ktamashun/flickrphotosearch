@@ -1,0 +1,6 @@
+package: github.com/ktamashun/flickrphotosearch/video-search
+import:
+- package: go.uber.org/fx
+  version: ^1.4.0
+- package: go.uber.org/dig
+  version: ^1.3.0
